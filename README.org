@@ -1,0 +1,16 @@
+* Purpose
+
+Some small rules for batched org to pdf/html converion.
+
+* Requirements
+
+ - a recent emacs
+ - [[http://users.phys.psu.edu/~collins/software/latexmk-jcc][latexmk]]
+ - pdflatex
+ - network access to install emacs packages from MELPA
+
+* Usage
+
+  #+BEGIN_SRC sh
+make -f doc.mk ORG_SOURCES=MY-README  
+  #+END_SRC
