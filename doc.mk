@@ -44,10 +44,15 @@ mrproper-doc:	clean-doc
 	${EMACS} --eval "(package-install '$*)"
 	@touch $@
 
-$(addsuffix .html,${ORG_SOURCES}):%.html:	%.org .emacs.d/.stamp-pkg-htmlize .emacs.d/.stamp-pkg-org
+%.org-recalc:	%.org .emacs.d/.stamp-pkg-org
+	rm -f $@ $@.tmp
+	${EMACS} $< --eval '(progn (org-dblock-update t)(org-table-iterate-buffer-tables)(write-file "$@.tmp"))'
+	mv $@.tmp $@
+
+$(addsuffix .html,${ORG_SOURCES}):%.html:	%.org-recalc .emacs.d/.stamp-pkg-htmlize
 	${EMACS} $< -f org-html-export-to-html
 
-$(addsuffix .tex,${ORG_SOURCES}):%.tex:		%.org .emacs.d/.stamp-pkg-org
+$(addsuffix .tex,${ORG_SOURCES}):%.tex:		%.org-recalc
 	${EMACS} $< -f org-latex-export-to-latex
 
 $(addsuffix .pdf,${ORG_SOURCES}):%.pdf:		%.tex
