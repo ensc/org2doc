@@ -7,6 +7,7 @@
 (package-initialize)
 
 (defun ensc/org-fixup-latex-export (backend)
+  (require 'cl)
   (goto-char (point-min))
   (while (re-search-forward "^\\([[:space:]]*|\\([[:space:]]*|\\)?[[:space:]]*\\)\\(\\*+\\)\\([[:space:]]+\\)\\(<<[-_+[:alnum:]]*>>\\)?" nil t)
     (case backend
