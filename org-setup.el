@@ -36,3 +36,6 @@
 
 ;; prevent generation of *~ backup files
 (setq backup-inhibited t)
+
+(autoload 'org-html-export-to-html "ox-html")
+(autoload 'org-latex-export-to-latex "ox-latex")
