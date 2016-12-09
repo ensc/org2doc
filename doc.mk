@@ -55,6 +55,12 @@ $(addsuffix .html,${ORG_SOURCES}):%.html:	%.org-recalc .emacs.d/.stamp-pkg-htmli
 $(addsuffix .tex,${ORG_SOURCES}):%.tex:		%.org-recalc
 	${EMACS} $< -f org-latex-export-to-latex
 
+$(addsuffix .txt,${ORG_SOURCES}):%.txt:		%.org-recalc
+	${EMACS} $< -f org-ascii-export-to-ascii
+
+$(addsuffix .odt,${ORG_SOURCES}):%.odt:		%.org-recalc
+	${EMACS} $< -f org-odt-export-to-odt
+
 $(addsuffix .pdf,${ORG_SOURCES}):%.pdf:		%.tex
 	${RUN_LATEX} -pdf $< -deps-out=${@D}/.${@F}.deps.tmp
 	${RUN_LATEX} -c -pdf $<
