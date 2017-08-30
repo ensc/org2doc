@@ -17,7 +17,10 @@
 \lstset{backgroundcolor=\color{lightyellow}}
 \lstset{commentstyle=\color{gray}}
 \lstset{stringstyle=\color{ForestGreen}}
+
+\ifdefined\customfundamental\else
 \lstdefinelanguage{fundamental}{}
+\fi
 
 \usepackage{fancyhdr}
 \renewcommand{\headrulewidth}{0pt}
