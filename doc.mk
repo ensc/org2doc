@@ -28,7 +28,7 @@ clean:		clean-doc
 
 clean-doc:
 	rm -f *.aux *.fdb_latexmk *.fls *.toc *.*~ texput.log .*.deps
-	rm -f $(foreach o,${ORG_SOURCES},$(prefix $o,.log .out .tex* .pdf .html))
+	rm -f $(foreach o,${ORG_SOURCES},$(addprefix $o,.log .out .tex* .pdf .html))
 
 mrproper:	mrproper-doc
 
