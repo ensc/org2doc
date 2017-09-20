@@ -1,10 +1,16 @@
 ; note: requires recent org-mode from ELPA (tested with 20150914)
 
+(require 'cl)
+
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
 	("melpa" . "http://melpa.org/packages/")))
 
 (package-initialize)
+
+(defmacro ensc/babel-by-backend (&rest body)
+  `(case (when (boundp 'org-export-current-backend)
+	     org-export-current-backend) ,@body))
 
 (defun ensc/org-fixup-latex-export (backend)
   (require 'cl)
@@ -36,6 +42,12 @@
 
 ;; prevent generation of *~ backup files
 (setq backup-inhibited t)
+
+(setq org-babel-load-languages '((emacs-lisp . t)
+				 (mscgen . t)
+				 (latex . t))
+      org-babel-latex-htlatex "htlatex"
+      org-confirm-babel-evaluate nil)
 
 (autoload 'org-html-export-to-html "ox-html")
 (autoload 'org-latex-export-to-latex "ox-latex")
