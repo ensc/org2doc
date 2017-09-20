@@ -6,7 +6,8 @@ PDFLATEX_FLAGS = \
 
 EMACS_ENV = \
 	HOME=${abs_builddir} \
-	GNUPGHOME=${abs_builddir}/.emacs.d/.gnupg
+	GNUPGHOME=${abs_builddir}/.emacs.d/.gnupg \
+	TEXINPUTS=${_texinputs}
 
 EMACS = \
 	env ${EMACS_ENV} \
@@ -21,6 +22,8 @@ abs_srcdir =	$(abspath ${srcdir})
 abs_builddir =	$(abspath ${builddir})
 
 ORG_SOURCES ?=	README
+
+_texinputs = $(abspath ${*D}):${abs_srcdir}:
 
 all:
 
