@@ -23,7 +23,13 @@ abs_builddir =	$(abspath ${builddir})
 
 ORG_SOURCES ?=	README
 
+ORG_VERSION	?= 20170918
+
+PKGSPEC_org      = $(call pkgspec, org,     ${ORG_VERSION}, gnu,   tar)
+PKGSPEC_htmlize  = $(call pkgspec, htmlize, 20161211 1019,  melpa, single)
+
 _texinputs = $(abspath ${*D}):${abs_srcdir}:
+pkgspec = \'$(strip $1)\ \'\('$(strip $2)'\)\ \"$(strip $3)\"\ \'$(strip $4)
 
 all:
 
@@ -46,7 +52,7 @@ mrproper-doc:	clean-doc
 	@touch $@
 
 .emacs.d/.stamp-pkg-%:		.emacs.d/.stamp-downloaded
-	${EMACS} --eval "(package-install '$*)"
+	${EMACS} --eval '(ensc/package-install '${PKGSPEC_$*}')'
 	@touch $@
 
 %.org-recalc:	%.org .emacs.d/.stamp-pkg-org

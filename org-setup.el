@@ -12,6 +12,13 @@
   `(case (when (boundp 'org-export-current-backend)
 	     org-export-current-backend) ,@body))
 
+(defun ensc/package-install (pkg version archive kind)
+  (let ((p (package-desc-create :name pkg
+				:version version
+				:archive archive
+				:kind kind)))
+    (package-install p)))
+
 (defun ensc/org-fixup-latex-export (backend)
   (require 'cl)
   (goto-char (point-min))
