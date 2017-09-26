@@ -55,6 +55,10 @@ mrproper-doc:	clean-doc
 	${EMACS} --eval '(ensc/package-install '${PKGSPEC_$*}')'
 	@touch $@
 
+# .SECONDARY would be better but is not supported
+.PRECIOUS:	.emacs.d/.stamp-pkg-%
+.SECONDARY:	.emacs.d/.stamp-downloaded
+
 %.org-recalc:	%.org .emacs.d/.stamp-pkg-org
 	rm -f $@ $@.tmp
 	${EMACS} $< --eval '(progn (org-dblock-update t)(org-table-iterate-buffer-tables)(write-file "$@.tmp"))'
