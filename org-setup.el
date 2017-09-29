@@ -45,7 +45,10 @@
 (add-hook 'org-export-before-parsing-hook 'ensc/org-fixup-latex-export)
 
 (setq org-latex-listings t
-      org-src-fontify-natively t)
+      org-src-fontify-natively t
+      org-latex-caption-above nil
+      org-html-table-caption-above nil
+      org-ascii-caption-above nil)
 
 ;; prevent generation of *~ backup files
 (setq backup-inhibited t)
