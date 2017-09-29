@@ -24,7 +24,7 @@ abs_builddir =	$(abspath ${builddir})
 
 ORG_SOURCES ?=	README
 
-ORG_VERSION	?= 20170918
+ORG_VERSION	?= 20170925
 
 LOCALSETUP_EL   ?= $(wildcard ${builddir}/local-setup.el)
 PKGSPEC_org      = $(call pkgspec, org,     ${ORG_VERSION}, gnu,   tar)
