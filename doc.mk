@@ -11,7 +11,8 @@ EMACS_ENV = \
 
 EMACS = \
 	env ${EMACS_ENV} \
-	emacs --batch --kill -Q -nw -l ${srcdir}/org-setup.el
+	emacs --batch --kill -Q -nw \
+	$(addprefix -l ,${_setup_el})
 
 RUN_LATEX = \
 	${LATEXMK} -pdflatex='${PDFLATEX} ${PDFLATEX_FLAGS} %O %S'
@@ -25,8 +26,11 @@ ORG_SOURCES ?=	README
 
 ORG_VERSION	?= 20170918
 
+LOCALSETUP_EL   ?= $(wildcard ${builddir}/local-setup.el)
 PKGSPEC_org      = $(call pkgspec, org,     ${ORG_VERSION}, gnu,   tar)
 PKGSPEC_htmlize  = $(call pkgspec, htmlize, 20161211 1019,  melpa, single)
+
+_setup_el	 = ${srcdir}/org-setup.el ${LOCALSETUP_EL}
 
 _texinputs = $(abspath ${*D}):${abs_srcdir}:
 pkgspec = \'$(strip $1)\ \'\('$(strip $2)'\)\ \"$(strip $3)\"\ \'$(strip $4)
