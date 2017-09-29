@@ -55,7 +55,7 @@ mrproper-doc:	clean-doc
 	${EMACS} -f package-refresh-contents
 	@touch $@
 
-.emacs.d/.stamp-pkg-%:		.emacs.d/.stamp-downloaded
+.emacs.d/.stamp-pkg-%:		| .emacs.d/.stamp-downloaded
 	${EMACS} --eval '(ensc/package-install '${PKGSPEC_$*}')'
 	@touch $@
 
