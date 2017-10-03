@@ -19,6 +19,11 @@
 				:kind kind)))
     (package-install p)))
 
+(defun ensc/shell-first-line (cmd)
+  ;; TODO: semantic is wrong; we should return the first line only but
+  ;; strip trailing \n instead of.
+  (replace-regexp-in-string "\n+$" "" (shell-command-to-string cmd) t))
+
 (defun ensc/org-fixup-latex-export (backend)
   (require 'cl)
   (goto-char (point-min))
@@ -35,12 +40,19 @@
 				       (setq tmp (concat tmp "\\\\nbsp{}")))))))
       ))
 
-  (goto-char (point-min))
-  (while (re-search-forward "@ORG_GIT_REVISION@" nil t)
-    (replace-match
-     (replace-regexp-in-string "\n$" ""
-			       (shell-command-to-string "${GIT:-git} describe --dirty --always")) t))
-  )
+  (let* ((rev (ensc/shell-first-line "${GIT:-git} describe --dirty --always"))
+	 (cnt (ensc/shell-first-line "${GIT:-git} rev-list HEAD | wc -l"))
+	 (longrev (ensc/shell-first-line "${GIT:-git} rev-parse HEAD"))
+	 (revstr (concat cnt "\\small{+}g" rev))
+	 (subst `(("@ORG_GIT_REVISION@"     . ,revstr)
+		  ("@ORG_GIT_REVISION_CNT@" . ,cnt)
+		  ("@ORG_GIT_REVISION_LONG@" . ,longrev)
+		  ("@ORG_GIT_REVISION_REV@" . ,rev)))
+	 (regexp (regexp-opt (cl-mapcar 'car subst))))
+
+    (goto-char (point-min))
+    (while (re-search-forward regexp nil t)
+      (replace-match (cdr (assoc (match-string 0) subst)) t t))))
 
 (add-hook 'org-export-before-parsing-hook 'ensc/org-fixup-latex-export)
 
