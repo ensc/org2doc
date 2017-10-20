@@ -24,11 +24,12 @@ abs_builddir =	$(abspath ${builddir})
 
 ORG_SOURCES ?=	README
 
-ORG_VERSION	?= 20171002
+ORG_VERSION	?= 20171016
+HTMLIZE_VERSION ?= 20171017 141
 
 LOCALSETUP_EL   ?= $(wildcard ${builddir}/local-setup.el)
-PKGSPEC_org      = $(call pkgspec, org,     ${ORG_VERSION}, gnu,   tar)
-PKGSPEC_htmlize  = $(call pkgspec, htmlize, 20161211 1019,  melpa, single)
+PKGSPEC_org      = $(call pkgspec, org,     ${ORG_VERSION},     gnu,   tar)
+PKGSPEC_htmlize  = $(call pkgspec, htmlize, ${HTMLIZE_VERSION}, melpa, single)
 
 _setup_el	 = ${srcdir}/org-setup.el ${LOCALSETUP_EL}
 
