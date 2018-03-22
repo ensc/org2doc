@@ -24,7 +24,7 @@ abs_builddir =	$(abspath ${builddir})
 
 ORG_SOURCES ?=	README
 
-ORG_VERSION	?= 20171016
+ORG_VERSION	?= 20171113
 HTMLIZE_VERSION ?= 20180317 1549
 
 LOCALSETUP_EL   ?= $(wildcard ${builddir}/local-setup.el)
