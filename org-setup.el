@@ -2,6 +2,9 @@
 
 (require 'cl)
 
+(setq ensc/package-mirror
+      "https://www.sigma-chemnitz.de/dl/elito/sources/")
+
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
 	("melpa" . "http://melpa.org/packages/")))
@@ -12,12 +15,20 @@
   `(case (when (boundp 'org-export-current-backend)
 	     org-export-current-backend) ,@body))
 
+(defun ensc/package-install-cache (pkg-desc)
+  (let* ((archive (package-desc-archive pkg-desc))
+	 (mirror (or (getenv "PACKAGE_MIRROR") ensc/package-mirror))
+	 (package-archives (list (cons archive mirror))))
+    (package-install p)))
+
 (defun ensc/package-install (pkg version archive kind)
   (let ((p (package-desc-create :name pkg
 				:version version
 				:archive archive
 				:kind kind)))
-    (package-install p)))
+    (condition-case ex
+	(package-install p)
+      ('error (ensc/package-install-cache p)))))
 
 (defun ensc/shell-first-line (cmd)
   ;; TODO: semantic is wrong; we should return the first line only but
