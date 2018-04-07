@@ -13,7 +13,7 @@
 
 (defmacro ensc/babel-by-backend (&rest body)
   `(case (when (boundp 'org-export-current-backend)
-	     org-export-current-backend) ,@body))
+	   org-export-current-backend) ,@body))
 
 (defun ensc/package-install-cache (pkg-desc)
   (let* ((archive (package-desc-archive pkg-desc))
