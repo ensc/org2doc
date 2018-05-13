@@ -78,6 +78,7 @@
 
 (setq org-babel-load-languages '((emacs-lisp . t)
 				 (mscgen . t)
+				 (ditaa . t)
 				 (latex . t))
       org-babel-latex-htlatex "htlatex"
       org-confirm-babel-evaluate nil)

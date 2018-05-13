@@ -56,6 +56,24 @@ mrproper-doc:	clean-doc
 	${EMACS} -f package-refresh-contents
 	@touch $@
 
+##### {{{ ditaa support
+ifneq (${ENABLE_DITAA},)
+.emacs.d/.stamp-pkg-org:	| .emacs.d/.stamp-extra-ditaa
+endif
+
+.emacs.d/.stamp-extra-ditaa:	.emacs.d/elpa/contrib/scripts/ditaa.jar
+.emacs.d/elpa/contrib/scripts/ditaa.jar:%/ditaa.jar:	%/ditaa.zip
+	@rm -f '${@D}'/ditaa*.jar
+	${UNZIP} -d '${@D}' '$<' 'ditaa*.jar'
+	cd '${@D}' && mv ditaa*.jar ditaa.jar
+
+%/ditaa.zip:
+	@mkdir -p ${@D}
+	@rm -f $@ $@.tmp
+	${WGET} '${DITAA_ZIP}' -O $@.tmp
+	mv $@.tmp $@
+##### }}} ditaa support
+
 .emacs.d/.stamp-pkg-%:		| .emacs.d/.stamp-downloaded
 	${EMACS} --eval '(ensc/package-install '${PKGSPEC_$*}')'
 	@touch $@
