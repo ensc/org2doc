@@ -68,9 +68,9 @@ endif
 
 .emacs.d/.stamp-extra-ditaa:	.emacs.d/elpa/contrib/scripts/ditaa.jar
 .emacs.d/elpa/contrib/scripts/ditaa.jar:%/ditaa.jar:	%/ditaa.zip
-	@rm -f '${@D}'/ditaa*.jar
-	${UNZIP} -d '${@D}' '$<' 'ditaa*.jar'
-	cd '${@D}' && mv ditaa*.jar ditaa.jar
+	@rm -f '${@D}'/ditaa*.jar '$@'
+	${UNZIP} -p '$(abspath $<)' 'ditaa*.jar' > '$@'.tmp
+	mv '$@'.tmp '$@'
 
 %/ditaa.zip:
 	@mkdir -p ${@D}
