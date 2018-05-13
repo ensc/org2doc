@@ -64,6 +64,7 @@ mrproper-doc:	clean-doc
 ##### {{{ ditaa support
 ifneq (${ENABLE_DITAA},)
 .emacs.d/.stamp-pkg-org:	| .emacs.d/.stamp-extra-ditaa
+mrproper:	mrproper-ditaa
 endif
 
 .emacs.d/.stamp-extra-ditaa:	.emacs.d/elpa/contrib/scripts/ditaa.jar
@@ -77,6 +78,10 @@ endif
 	@rm -f $@ $@.tmp
 	${WGET} '${DITAA_ZIP}' -O $@.tmp
 	mv $@.tmp $@
+
+mrproper-ditaa:
+	-rm -f .emacs.d/elpa/contrib/scripts/ditaa*
+	-rmdir .emacs.d/elpa/contrib/scripts .emacs.d/elpa/contrib
 ##### }}} ditaa support
 
 .emacs.d/.stamp-pkg-%:		| .emacs.d/.stamp-downloaded
