@@ -1,3 +1,5 @@
+WGET =		wget
+UNZIP =		unzip
 LATEXMK =	latexmk
 PDFLATEX =	env TEXINPUTS=${srcdir}: pdflatex
 PDFLATEX_FLAGS = \
@@ -30,6 +32,9 @@ HTMLIZE_VERSION ?= 20180328 2341
 LOCALSETUP_EL   ?= $(wildcard ${builddir}/local-setup.el)
 PKGSPEC_org      = $(call pkgspec, org,     ${ORG_VERSION},     gnu,   tar)
 PKGSPEC_htmlize  = $(call pkgspec, htmlize, ${HTMLIZE_VERSION}, melpa, single)
+
+DITAA_VERSION	?= 0.9
+DITAA_ZIP	?= https://sourceforge.net/projects/ditaa/files/ditaa/${DITAA_VERSION}/ditaa0_9.zip
 
 _setup_el	 = ${srcdir}/org-setup.el ${LOCALSETUP_EL}
 
