@@ -1,6 +1,7 @@
 ; note: requires recent org-mode from ELPA (tested with 20150914)
 
 (require 'cl)
+(toggle-debug-on-error t)
 
 (setq ensc/package-mirror
       "https://www.sigma-chemnitz.de/dl/elito/sources/")
