@@ -10,6 +10,10 @@
       '(("gnu" . "http://elpa.gnu.org/packages/")
 	("melpa" . "http://melpa.org/packages/")))
 
+(let ((gpghome (getenv "GNUPGHOME")))
+  (when gpghome
+    (setq package-gnupghome-dir gpghome)))
+
 (package-initialize)
 
 (defmacro ensc/babel-by-backend (&rest body)
