@@ -19,6 +19,9 @@ EMACS = \
 RUN_LATEX = \
 	${LATEXMK} -pdflatex='${PDFLATEX} ${PDFLATEX_FLAGS} %O %S'
 
+GPG =		$(shell type -p gpg2 || echo gpg)
+ELPA_KEY =	066DAFCB81E42C40.asc
+
 srcdir ?= 	$(dir $(firstword ${MAKEFILE_LIST}))
 builddir =	.
 abs_srcdir =	$(abspath ${srcdir})
@@ -58,6 +61,7 @@ mrproper-doc:	clean-doc
 
 .emacs.d/.stamp-downloaded:	 ${srcdir}/org-setup.el
 	@mkdir -p ${@D}
+	env ${EMACS_ENV} ${GPG} --import "${srcdir}/${ELPA_KEY}"
 	${EMACS} -f package-refresh-contents
 	@touch $@
 
