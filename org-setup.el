@@ -4,7 +4,7 @@
 (toggle-debug-on-error t)
 
 (setq ensc/package-mirror
-      "https://www.sigma-chemnitz.de/dl/elito/sources/")
+      "http://dl.sigma-chemnitz.de/elito/sources/")
 
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
