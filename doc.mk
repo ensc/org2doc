@@ -22,7 +22,7 @@ RUN_LATEX = \
 GPG =		$(shell type -p gpg2 || echo gpg)
 ELPA_KEY =	066DAFCB81E42C40.asc
 
-srcdir ?= 	$(dir $(firstword ${MAKEFILE_LIST}))
+srcdir ?=	$(dir $(firstword ${MAKEFILE_LIST}))
 builddir =	.
 abs_srcdir =	$(abspath ${srcdir})
 abs_builddir =	$(abspath ${builddir})
