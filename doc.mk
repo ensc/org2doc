@@ -29,7 +29,7 @@ abs_builddir =	$(abspath ${builddir})
 
 ORG_SOURCES ?=	README
 
-ORG_VERSION	?= 9 4
+ORG_VERSION	?= 9 4.4
 HTMLIZE_VERSION ?= 20200816 746
 
 LOCALSETUP_EL   ?= $(wildcard ${builddir}/local-setup.el)
